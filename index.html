@@ -4,17 +4,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#10142f">
-    <meta name="description" content="Космическая игра, которая помогает научиться дополнять число до десяти.">
-    <title>Космическая десятка</title>
+    <meta name="description" content="Числонавты — математическая игра для детей. Первая миссия: Космическая десятка.">
+    <title>Числонавты — Космическая десятка</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/app.js" defer></script>
   </head>
   <body>
     <div class="game">
       <header class="game__header">
-        <a class="game__brand" href="#welcome" aria-label="Космическая десятка — начало">
+        <a class="game__brand" href="#welcome" aria-label="Числонавты — первая миссия: Космическая десятка">
           <span class="game__brand-icon" aria-hidden="true">✦</span>
-          <span>Космическая десятка</span>
+          <span>Числонавты</span>
         </a>
         <span class="game__header-note">Маленький шаг — большая ракета</span>
       </header>
@@ -30,7 +30,7 @@
             <span class="game__art-rocket">🚀</span>
           </div>
           <div class="game__welcome-copy">
-            <p class="game__eyebrow">Миссия: числа до 10</p>
+            <p class="game__eyebrow">Первая миссия</p>
             <h1 class="game__title" id="welcome-title" tabindex="-1">Космическая<br><span>десятка</span></h1>
             <p class="game__description">Помоги ракете добраться до планеты! Для этого будем собирать разные числа до десяти.</p>
             <button class="game__button game__button--primary" type="button" data-action="start">
@@ -40,11 +40,26 @@
           </div>
         </section>
 
+        <section class="game__screen game__screen--name" data-screen="name" aria-labelledby="name-title" hidden>
+          <div class="game__name-card">
+            <span class="game__name-rocket" aria-hidden="true">🧑‍🚀</span>
+            <p class="game__eyebrow">Перед стартом</p>
+            <h1 class="game__stage-title" id="name-title" tabindex="-1" data-name-title>Как тебя зовут?</h1>
+            <p class="game__stage-description">Мы будем звать тебя по имени во время полёта.</p>
+            <form class="game__name-form" data-name-form novalidate>
+              <label class="game__name-label" for="player-name">Твоё имя</label>
+              <input class="game__name-input" id="player-name" name="player-name" type="text" maxlength="24" autocomplete="off" autocapitalize="words" placeholder="Например, Миша" required>
+              <p class="game__name-error" data-name-error role="status" aria-live="polite"></p>
+              <button class="game__button game__button--primary" type="submit">На старт <span aria-hidden="true">→</span></button>
+            </form>
+          </div>
+        </section>
+
         <section class="game__screen game__screen--question" data-screen="baseline" aria-labelledby="baseline-title" hidden>
           <div class="game__stage-heading">
             <p class="game__eyebrow">Перед полётом</p>
             <h1 class="game__stage-title" id="baseline-title" tabindex="-1">Проверим состав чисел</h1>
-            <p class="game__stage-description">Реши три задания. Здесь можно не спешить.</p>
+            <p class="game__stage-description" data-player-text="Готов, %name%? Реши три задания. Здесь можно не спешить.">Реши три задания. Здесь можно не спешить.</p>
           </div>
           <div class="game__question-card">
             <div class="game__question-meta"><span data-question-count></span><span class="game__meta-dot">·</span><span>До старта</span></div>
@@ -59,7 +74,7 @@
         <section class="game__screen game__screen--question" data-screen="practice" aria-labelledby="practice-title" hidden>
           <div class="game__stage-heading">
             <p class="game__eyebrow">Космическое приключение</p>
-            <h1 class="game__stage-title" id="practice-title" tabindex="-1">Заряжаем ракету</h1>
+            <h1 class="game__stage-title" id="practice-title" tabindex="-1" data-player-text="Заряжаем ракету, %name%!">Заряжаем ракету</h1>
             <p class="game__stage-description">Собери нужное число — и ракета полетит дальше!</p>
           </div>
           <div class="game__journey" aria-label="Путь ракеты к планете">
@@ -90,7 +105,7 @@
           <div class="game__stage-heading">
             <p class="game__eyebrow">Почти у цели</p>
             <h1 class="game__stage-title" id="final-title" tabindex="-1">Проверим новые числа</h1>
-            <p class="game__stage-description">Ещё три задания — и планета наша!</p>
+            <p class="game__stage-description" data-player-text="Ещё три задания, %name%, — и планета наша!">Ещё три задания — и планета наша!</p>
           </div>
           <div class="game__question-card">
             <div class="game__question-meta"><span data-question-count></span><span class="game__meta-dot">·</span><span>Новая проверка</span></div>
@@ -111,8 +126,8 @@
             <span class="game__result-confetti">✦　·　✧　·　✦</span>
           </div>
           <p class="game__eyebrow">Миссия выполнена</p>
-          <h1 class="game__stage-title" id="result-title" tabindex="-1">Ура, мы на планете!</h1>
-          <p class="game__result-description">Ты помог ракете долететь до цели. Спасибо за это космическое приключение!</p>
+          <h1 class="game__stage-title" id="result-title" tabindex="-1" data-player-text="Ура, %name%, мы на планете!">Ура, мы на планете!</h1>
+          <p class="game__result-description">Ракета добралась до планеты. Спасибо за это космическое приключение!</p>
           <button class="game__button game__button--primary" type="button" data-action="restart">Играть ещё <span aria-hidden="true">↻</span></button>
 
           <details class="game__parent-panel">
@@ -120,13 +135,22 @@
             <div class="game__parent-content">
               <p class="game__parent-caption">Результаты этого занятия</p>
               <dl class="game__stats">
-                <div class="game__stat"><dt>До игры</dt><dd data-stat="baseline">— из 3</dd></div>
-                <div class="game__stat"><dt>После игры</dt><dd data-stat="final">— из 3</dd></div>
+                <div class="game__stat"><dt>Проверка до практики — верно</dt><dd data-stat="baseline">— из 3 заданий</dd></div>
+                <div class="game__stat"><dt>Проверка после практики — верно</dt><dd data-stat="final">— из 3 заданий</dd></div>
                 <div class="game__stat"><dt>Ошибки в практике</dt><dd data-stat="errors">0</dd></div>
                 <div class="game__stat"><dt>Использовано подсказок</dt><dd data-stat="hints">0</dd></div>
-                <div class="game__stat game__stat--wide"><dt>Решено с первой попытки</dt><dd data-stat="first-try">0 из 6</dd></div>
+                <div class="game__stat"><dt>Практика — с первой попытки</dt><dd data-stat="first-try">— из 6 заданий</dd></div>
+                <div class="game__stat"><dt>Всего заданий за занятие</dt><dd data-stat="total">12</dd></div>
               </dl>
+              <details class="game__example-details" open>
+                <summary>Ошибки по каждому примеру</summary>
+                <p class="game__example-caption">Счёт за это занятие и за все игры с этим именем.</p>
+                <ul class="game__example-list" data-example-stats></ul>
+              </details>
               <p class="game__parent-footnote">Это результаты одного занятия — они не определяют, насколько хорошо ребёнок освоил тему.</p>
+              <button class="game__button game__button--secondary" type="button" data-action="share-report">Поделиться отчётом <span aria-hidden="true">↗</span></button>
+              <p class="game__share-status" data-share-status role="status" aria-live="polite"></p>
+              <textarea class="game__share-fallback" data-share-fallback aria-label="Текст отчёта для копирования" readonly hidden></textarea>
             </div>
           </details>
         </section>

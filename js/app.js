@@ -3,40 +3,69 @@
     baseline: [
       { target: 2, known: 1, form: 'sum-first' },
       { target: 3, known: 1, form: 'sum-first' },
-      { target: 4, known: 3, form: 'ten-first' },
+      { target: 4, known: 2, form: 'ten-first' },
       { target: 5, known: 2, form: 'sum-first' },
-      { target: 6, known: 4, form: 'ten-first' },
+      { target: 6, known: 3, form: 'ten-first' },
       { target: 7, known: 3, form: 'sum-first' },
-      { target: 8, known: 5, form: 'ten-first' },
-      { target: 9, known: 2, form: 'sum-first' },
-      { target: 10, known: 6, form: 'ten-first' }
+      { target: 8, known: 4, form: 'ten-first' },
+      { target: 9, known: 4, form: 'sum-first' },
+      { target: 10, known: 5, form: 'ten-first' }
     ],
     practice: [
       { target: 2, known: 1, form: 'sum-first' }, { target: 2, known: 1, form: 'ten-first' },
       { target: 3, known: 1, form: 'sum-first' }, { target: 3, known: 2, form: 'ten-first' },
-      { target: 4, known: 1, form: 'sum-first' }, { target: 4, known: 3, form: 'ten-first' },
-      { target: 5, known: 1, form: 'sum-first' }, { target: 5, known: 4, form: 'ten-first' },
-      { target: 6, known: 1, form: 'sum-first' }, { target: 6, known: 5, form: 'ten-first' },
-      { target: 7, known: 1, form: 'sum-first' }, { target: 7, known: 6, form: 'ten-first' },
-      { target: 8, known: 1, form: 'sum-first' }, { target: 8, known: 7, form: 'ten-first' },
-      { target: 9, known: 1, form: 'sum-first' }, { target: 9, known: 8, form: 'ten-first' },
-      { target: 10, known: 1, form: 'sum-first' }, { target: 10, known: 9, form: 'ten-first' }
+      { target: 4, known: 2, form: 'sum-first' }, { target: 4, known: 2, form: 'ten-first' },
+      { target: 5, known: 2, form: 'sum-first' }, { target: 5, known: 3, form: 'ten-first' },
+      { target: 6, known: 2, form: 'sum-first' }, { target: 6, known: 3, form: 'ten-first' },
+      { target: 7, known: 2, form: 'sum-first' }, { target: 7, known: 3, form: 'ten-first' },
+      { target: 8, known: 2, form: 'sum-first' }, { target: 8, known: 3, form: 'ten-first' }, { target: 8, known: 4, form: 'sum-first' },
+      { target: 9, known: 3, form: 'sum-first' }, { target: 9, known: 4, form: 'ten-first' },
+      { target: 10, known: 2, form: 'sum-first' }, { target: 10, known: 3, form: 'ten-first' }, { target: 10, known: 4, form: 'sum-first' }, { target: 10, known: 5, form: 'ten-first' }
     ],
     final: [
       { target: 2, known: 1, form: 'sum-first' }, { target: 2, known: 1, form: 'ten-first' },
       { target: 3, known: 1, form: 'ten-first' }, { target: 3, known: 2, form: 'sum-first' },
-      { target: 4, known: 1, form: 'ten-first' }, { target: 4, known: 3, form: 'sum-first' },
-      { target: 5, known: 1, form: 'ten-first' }, { target: 5, known: 4, form: 'sum-first' },
-      { target: 6, known: 1, form: 'ten-first' }, { target: 6, known: 5, form: 'sum-first' },
-      { target: 7, known: 1, form: 'ten-first' }, { target: 7, known: 6, form: 'sum-first' },
-      { target: 8, known: 1, form: 'ten-first' }, { target: 8, known: 7, form: 'sum-first' },
-      { target: 9, known: 1, form: 'ten-first' }, { target: 9, known: 8, form: 'sum-first' },
-      { target: 10, known: 1, form: 'ten-first' }, { target: 10, known: 9, form: 'sum-first' }
+      { target: 4, known: 2, form: 'ten-first' }, { target: 4, known: 2, form: 'sum-first' },
+      { target: 5, known: 2, form: 'ten-first' }, { target: 5, known: 3, form: 'sum-first' },
+      { target: 6, known: 2, form: 'ten-first' }, { target: 6, known: 3, form: 'sum-first' },
+      { target: 7, known: 2, form: 'ten-first' }, { target: 7, known: 3, form: 'sum-first' },
+      { target: 8, known: 2, form: 'ten-first' }, { target: 8, known: 3, form: 'sum-first' }, { target: 8, known: 5, form: 'ten-first' },
+      { target: 9, known: 3, form: 'ten-first' }, { target: 9, known: 4, form: 'sum-first' },
+      { target: 10, known: 2, form: 'ten-first' }, { target: 10, known: 3, form: 'sum-first' }, { target: 10, known: 4, form: 'ten-first' }, { target: 10, known: 5, form: 'sum-first' }
     ]
   };
 
+  const storageKey = 'cosmic-ten-data-v1';
+
+  function loadSavedData() {
+    try {
+      const rawData = window.localStorage.getItem(storageKey);
+      if (!rawData) return { playerName: '', lastReport: null, questionErrors: {} };
+      const data = JSON.parse(rawData);
+      const questionErrors = {};
+      if (data.questionErrors && typeof data.questionErrors === 'object') {
+        Object.entries(data.questionErrors).forEach(([key, count]) => {
+          if (Number.isInteger(count) && count > 0) questionErrors[key] = count;
+        });
+      }
+      return {
+        playerName: typeof data.playerName === 'string' ? data.playerName.slice(0, 24) : '',
+        lastReport: data.lastReport && typeof data.lastReport === 'object' ? data.lastReport : null,
+        questionErrors
+      };
+    } catch {
+      return { playerName: '', lastReport: null, questionErrors: {} };
+    }
+  }
+
+  const savedData = loadSavedData();
+
   const state = {
     screen: 'welcome',
+    playerName: savedData.playerName,
+    lastReport: savedData.lastReport,
+    questionErrors: savedData.questionErrors,
+    sessionExamples: {},
     indexes: { baseline: 0, practice: 0, final: 0 },
     activeQuestions: { baseline: [], practice: [], final: [] },
     stats: { baselineCorrect: 0, finalCorrect: 0, practiceErrors: 0, hintsUsed: 0, practiceFirstTry: 0 },
@@ -47,6 +76,8 @@
 
   const screens = [...document.querySelectorAll('[data-screen]')];
   const answerValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const nameForm = document.querySelector('[data-name-form]');
+  const nameInput = document.querySelector('#player-name');
 
   function shuffle(items) {
     const shuffled = [...items];
@@ -61,7 +92,36 @@
     return `${question.target}:${question.known}:${question.form}`;
   }
 
-  function pickMixedQuestions(pool, count, excluded = new Set()) {
+  function questionHistoryKey(question) {
+    return `${state.playerName.toLocaleLowerCase('ru-RU')}|${questionKey(question)}`;
+  }
+
+  function exampleErrorCount(question) {
+    return state.questionErrors[questionHistoryKey(question)] || 0;
+  }
+
+  function weightedPick(items, getWeight) {
+    const totalWeight = items.reduce((total, item) => total + getWeight(item), 0);
+    let choice = Math.random() * totalWeight;
+    for (const item of items) {
+      choice -= getWeight(item);
+      if (choice < 0) return item;
+    }
+    return items[items.length - 1];
+  }
+
+  function pickWithoutReplacement(items, count, getWeight) {
+    const available = [...items];
+    const selected = [];
+    while (selected.length < count && available.length) {
+      const item = weightedPick(available, getWeight);
+      selected.push(item);
+      available.splice(available.indexOf(item), 1);
+    }
+    return selected;
+  }
+
+  function pickMixedQuestions(pool, count, excluded = new Set(), prioritizeErrors = false) {
     const byTarget = new Map();
     pool.forEach((question) => {
       if (excluded.has(questionKey(question))) return;
@@ -69,17 +129,61 @@
       byTarget.get(question.target).push(question);
     });
 
-    return shuffle([...byTarget.values()])
-      .map((questionsForTarget) => shuffle(questionsForTarget)[0])
-      .slice(0, count);
+    const targetGroups = [...byTarget.values()];
+    const selectedGroups = prioritizeErrors
+      ? pickWithoutReplacement(targetGroups, count, (questionsForTarget) => {
+        const averageErrors = questionsForTarget.reduce((sum, question) => sum + exampleErrorCount(question), 0) / questionsForTarget.length;
+        return 1 + Math.min(averageErrors, 4);
+      })
+      : shuffle(targetGroups).slice(0, count);
+
+    return selectedGroups.map((questionsForTarget) => prioritizeErrors
+      ? weightedPick(questionsForTarget, (question) => 1 + Math.min(exampleErrorCount(question), 4))
+      : shuffle(questionsForTarget)[0]);
   }
 
   function prepareQuestions() {
     const baseline = pickMixedQuestions(questionPools.baseline, 3);
-    const practice = pickMixedQuestions(questionPools.practice, 6);
+    const practice = pickMixedQuestions(questionPools.practice, 6, new Set(), true);
     const practiceKeys = new Set(practice.map(questionKey));
     const final = pickMixedQuestions(questionPools.final, 3, practiceKeys);
     return { baseline, practice, final };
+  }
+
+  function saveData() {
+    try {
+      window.localStorage.setItem(storageKey, JSON.stringify({
+        playerName: state.playerName,
+        lastReport: state.lastReport,
+        questionErrors: state.questionErrors
+      }));
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  function personalizeTexts() {
+    document.querySelectorAll('[data-player-text]').forEach((element) => {
+      element.textContent = element.dataset.playerText.replace(/%name%/g, state.playerName);
+    });
+  }
+
+  function startSession() {
+    state.indexes = { baseline: 0, practice: 0, final: 0 };
+    state.activeQuestions = prepareQuestions();
+    state.stats = { baselineCorrect: 0, finalCorrect: 0, practiceErrors: 0, hintsUsed: 0, practiceFirstTry: 0 };
+    state.practiceAttempts = state.activeQuestions.practice.map(() => 0);
+    state.sessionExamples = {};
+    Object.values(state.activeQuestions).flat().forEach((question) => {
+      const key = questionKey(question);
+      if (!state.sessionExamples[key]) {
+        state.sessionExamples[key] = { ...question, errors: 0 };
+      }
+    });
+    personalizeTexts();
+    showScreen('baseline');
+    renderQuestion();
   }
 
   function showScreen(name) {
@@ -104,6 +208,12 @@
 
   function correctAnswer(question) {
     return question.target - question.known;
+  }
+
+  function equationText(question) {
+    return question.form === 'ten-first'
+      ? `${question.target} = ${question.known} + ?`
+      : `${question.known} + ? = ${question.target}`;
   }
 
   function renderEquation(container, question) {
@@ -223,6 +333,14 @@
     const activeScreen = document.querySelector(`[data-screen="${state.screen}"]`);
     const feedback = activeScreen.querySelector('[data-feedback]');
 
+    if (!isCorrect) {
+      const key = questionKey(question);
+      const historyKey = questionHistoryKey(question);
+      state.questionErrors[historyKey] = exampleErrorCount(question) + 1;
+      state.sessionExamples[key].errors += 1;
+      saveData();
+    }
+
     if (state.screen === 'baseline' || state.screen === 'final') {
       state.answerLocked = true;
       setAnswerButtonsDisabled(activeScreen, true, button);
@@ -267,14 +385,111 @@
     }, 380);
   }
 
+  function renderReport(report) {
+    document.querySelector('[data-stat="baseline"]').textContent = `${report.baselineCorrect} из ${report.baselineTotal} заданий`;
+    document.querySelector('[data-stat="final"]').textContent = `${report.finalCorrect} из ${report.finalTotal} заданий`;
+    document.querySelector('[data-stat="errors"]').textContent = String(report.practiceErrors);
+    document.querySelector('[data-stat="hints"]').textContent = String(report.hintsUsed);
+    document.querySelector('[data-stat="first-try"]').textContent = `${report.practiceFirstTry} из ${report.practiceTotal} заданий`;
+    document.querySelector('[data-stat="total"]').textContent = String(report.baselineTotal + report.practiceTotal + report.finalTotal);
+    const exampleList = document.querySelector('[data-example-stats]');
+    exampleList.replaceChildren(...report.exampleErrors.map((example) => {
+      const item = document.createElement('li');
+      const equation = document.createElement('span');
+      const counts = document.createElement('span');
+      equation.textContent = example.equation;
+      counts.textContent = `В занятии: ${example.sessionErrors}; всего: ${example.totalErrors}`;
+      item.append(equation, counts);
+      return item;
+    }));
+  }
+
   function showResults() {
-    document.querySelector('[data-stat="baseline"]').textContent = `${state.stats.baselineCorrect} из ${state.activeQuestions.baseline.length}`;
-    document.querySelector('[data-stat="final"]').textContent = `${state.stats.finalCorrect} из ${state.activeQuestions.final.length}`;
-    document.querySelector('[data-stat="errors"]').textContent = String(state.stats.practiceErrors);
-    document.querySelector('[data-stat="hints"]').textContent = String(state.stats.hintsUsed);
-    document.querySelector('[data-stat="first-try"]').textContent = `${state.stats.practiceFirstTry} из ${state.activeQuestions.practice.length}`;
+    state.lastReport = {
+      playerName: state.playerName,
+      baselineCorrect: state.stats.baselineCorrect,
+      baselineTotal: state.activeQuestions.baseline.length,
+      finalCorrect: state.stats.finalCorrect,
+      finalTotal: state.activeQuestions.final.length,
+      practiceErrors: state.stats.practiceErrors,
+      hintsUsed: state.stats.hintsUsed,
+      practiceFirstTry: state.stats.practiceFirstTry,
+      practiceTotal: state.activeQuestions.practice.length,
+      exampleErrors: Object.values(state.sessionExamples).map((example) => ({
+        equation: equationText(example),
+        sessionErrors: example.errors,
+        totalErrors: exampleErrorCount(example)
+      }))
+    };
+    saveData();
+    renderReport(state.lastReport);
+    document.querySelector('[data-share-status]').textContent = '';
+    const shareFallback = document.querySelector('[data-share-fallback]');
+    shareFallback.hidden = true;
+    shareFallback.value = '';
     state.answerLocked = false;
     showScreen('result');
+  }
+
+  function reportText(report) {
+    return [
+      'Числонавты — миссия «Космическая десятка» — отчёт занятия',
+      `Имя: ${report.playerName}`,
+      `Проверка до практики: верно решено ${report.baselineCorrect} из ${report.baselineTotal} заданий`,
+      `Проверка после практики: верно решено ${report.finalCorrect} из ${report.finalTotal} заданий`,
+      `Ошибки во время практики: ${report.practiceErrors}`,
+      `Использовано подсказок: ${report.hintsUsed}`,
+      `Практика с первой попытки: решено ${report.practiceFirstTry} из ${report.practiceTotal} заданий`,
+      `Всего заданий за занятие: ${report.baselineTotal + report.practiceTotal + report.finalTotal}`,
+      'Ошибки по примерам:',
+      ...report.exampleErrors.map((example) => `${example.equation} — в занятии: ${example.sessionErrors}, всего: ${example.totalErrors}`),
+      'Результаты одного занятия не показывают полного освоения темы.'
+    ].join('\n');
+  }
+
+  function showManualShareFallback(text, status) {
+    const fallback = document.querySelector('[data-share-fallback]');
+    fallback.value = text;
+    fallback.hidden = false;
+    fallback.focus();
+    fallback.select();
+    status.textContent = 'Выдели текст отчёта и скопируй его, чтобы поделиться.';
+  }
+
+  async function shareReport() {
+    const report = state.lastReport;
+    if (!report) return;
+
+    const text = reportText(report);
+    const status = document.querySelector('[data-share-status]');
+    const shareFallback = document.querySelector('[data-share-fallback]');
+    shareFallback.hidden = true;
+    status.textContent = '';
+
+    if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
+      try {
+        await navigator.share({ title: 'Числонавты — Космическая десятка — отчёт занятия', text });
+        status.textContent = 'Отчёт отправлен.';
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') {
+          status.textContent = 'Отправка отчёта отменена.';
+          return;
+        }
+      }
+    }
+
+    if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(text);
+        status.textContent = 'Отчёт скопирован. Теперь его можно отправить.';
+        return;
+      } catch {
+        // If clipboard access is unavailable, show selectable text below.
+      }
+    }
+
+    showManualShareFallback(text, status);
   }
 
   function resetGame() {
@@ -285,19 +500,36 @@
     state.stats = { baselineCorrect: 0, finalCorrect: 0, practiceErrors: 0, hintsUsed: 0, practiceFirstTry: 0 };
     state.practiceAttempts = [];
     state.answerLocked = false;
+    nameInput.value = state.playerName;
     showScreen('welcome');
   }
 
   document.querySelector('[data-action="start"]').addEventListener('click', () => {
-    state.indexes.baseline = 0;
-    state.activeQuestions = prepareQuestions();
-    state.stats = { baselineCorrect: 0, finalCorrect: 0, practiceErrors: 0, hintsUsed: 0, practiceFirstTry: 0 };
-    state.practiceAttempts = state.activeQuestions.practice.map(() => 0);
-    showScreen('baseline');
-    renderQuestion();
+    nameInput.value = state.playerName;
+    document.querySelector('[data-name-error]').textContent = '';
+    document.querySelector('[data-name-title]').textContent = state.playerName ? `С возвращением, ${state.playerName}!` : 'Как тебя зовут?';
+    showScreen('name');
+  });
+
+  nameForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const playerName = nameInput.value.replace(/\s+/g, ' ').trim().slice(0, 24);
+    const error = document.querySelector('[data-name-error]');
+    if (!playerName) {
+      error.textContent = 'Напиши своё имя, чтобы мы знали, кого звать в полёт.';
+      nameInput.focus();
+      return;
+    }
+
+    state.playerName = playerName;
+    saveData();
+    error.textContent = '';
+    startSession();
   });
 
   document.querySelector('[data-action="restart"]').addEventListener('click', resetGame);
+  document.querySelector('[data-action="share-report"]').addEventListener('click', shareReport);
 
+  nameInput.value = state.playerName;
   showScreen('welcome');
 })();
