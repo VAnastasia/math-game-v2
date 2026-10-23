@@ -62,6 +62,7 @@ body::after {
 button, summary { font: inherit; }
 button { -webkit-tap-highlight-color: transparent; }
 button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px solid var(--color-yellow); outline-offset: 4px; }
+h1[tabindex="-1"]:focus { outline: none; }
 [hidden] { display: none !important; }
 
 .game {
@@ -108,6 +109,18 @@ button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px soli
   padding-block: 12px 34px;
 }
 
+.game__screen--name { display: grid; max-width: 520px; place-items: center; text-align: center; }
+.game__name-card { width: min(100%, 500px); padding: clamp(24px, 6vw, 42px); border: 1px solid rgba(193, 190, 255, 0.14); border-radius: 28px; background: linear-gradient(145deg, rgba(38, 46, 96, 0.83), rgba(26, 32, 71, 0.9)); box-shadow: 0 24px 65px rgba(5, 8, 31, 0.28); }
+.game__name-rocket { display: block; margin-bottom: 15px; font-size: 48px; filter: drop-shadow(0 8px 16px rgba(4, 8, 38, 0.3)); }
+.game__name-card .game__eyebrow { margin-bottom: 7px; }
+.game__name-form { display: flex; flex-direction: column; align-items: stretch; margin-top: 22px; text-align: left; }
+.game__name-label { margin-bottom: 8px; color: #d5daf3; font-size: 13px; font-weight: 800; }
+.game__name-input { width: 100%; min-height: 56px; padding: 0 16px; border: 1px solid rgba(193, 190, 255, 0.27); border-radius: 15px; color: var(--color-text); background: rgba(9, 14, 46, 0.45); font: inherit; font-size: 17px; }
+.game__name-input::placeholder { color: #828db2; }
+.game__name-input:focus-visible { border-color: var(--color-violet); outline: 3px solid rgba(166, 139, 255, 0.2); outline-offset: 2px; }
+.game__name-error { min-height: 21px; margin: 7px 0 11px; color: #ffb8d0; font-size: 13px; font-weight: 800; }
+.game__name-form .game__button { align-self: center; }
+
 .game__welcome-art {
   position: relative;
   display: grid;
@@ -141,6 +154,9 @@ button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px soli
 .game__button--primary { color: #26194e; background: linear-gradient(135deg, #c6b6ff, #ffb5d3); box-shadow: 0 12px 30px rgba(155, 122, 255, 0.23); }
 .game__button--primary:hover { box-shadow: 0 16px 38px rgba(155, 122, 255, 0.36); }
 .game__button--primary span { font-size: 21px; }
+.game__button--secondary { min-height: 46px; margin-top: 13px; padding-inline: 18px; border: 1px solid rgba(193, 190, 255, 0.24); color: #e6e2ff; background: rgba(129, 117, 193, 0.13); font-size: 13px; }
+.game__button--secondary:hover { border-color: rgba(202, 186, 255, 0.6); background: rgba(149, 132, 229, 0.22); }
+.game__button--secondary span { font-size: 16px; }
 .game__duration { margin: 15px 0 0; color: #8993b8; font-size: 12px; font-weight: 700; }
 
 .game__screen--question { max-width: 700px; margin-inline: auto; }
@@ -206,7 +222,15 @@ button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px soli
 .game__stat dt { color: #b4bddf; font-size: 11px; font-weight: 700; }
 .game__stat dd { flex: 0 0 auto; margin: 0; color: var(--color-mint); font-size: 14px; font-weight: 900; }
 .game__stat--wide { grid-column: 1 / -1; }
+.game__example-details { margin-top: 13px; padding-top: 11px; border-top: 1px solid rgba(193, 190, 255, 0.12); }
+.game__example-details summary { color: #dcd8ff; cursor: pointer; font-size: 12px; font-weight: 900; }
+.game__example-caption { margin: 7px 0; color: #929dbf; font-size: 11px; line-height: 1.5; }
+.game__example-list { display: grid; max-height: 230px; gap: 5px; overflow: auto; margin: 0; padding: 0 3px 0 0; list-style: none; }
+.game__example-list li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 7px 9px; border-radius: 9px; color: #c5cbe7; background: rgba(9, 14, 46, 0.3); font-size: 11px; }
+.game__example-list li span:last-child { color: #aeb6dc; text-align: right; }
 .game__parent-footnote { margin: 12px 0 0; color: #929dbf; font-size: 11px; line-height: 1.5; }
+.game__share-status { min-height: 20px; margin: 7px 0 0; color: var(--color-mint); font-size: 12px; font-weight: 800; }
+.game__share-fallback { display: block; width: 100%; min-height: 125px; margin-top: 7px; padding: 10px; border: 1px solid rgba(193, 190, 255, 0.2); border-radius: 10px; color: #e8e7ff; background: rgba(9, 14, 46, 0.6); font: inherit; font-size: 12px; line-height: 1.5; resize: vertical; }
 
 .game__footer { min-height: 56px; justify-content: center; gap: 7px; color: #7782a8; font-size: 11px; font-weight: 700; }
 .game__footer-star { color: #ffda82; font-size: 14px; }
