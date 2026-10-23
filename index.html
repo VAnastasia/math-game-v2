@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#10142f">
+    <meta name="description" content="Космическая игра, которая помогает научиться дополнять число до десяти.">
+    <title>Космическая десятка</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/app.js" defer></script>
+  </head>
+  <body>
+    <div class="game">
+      <header class="game__header">
+        <a class="game__brand" href="#welcome" aria-label="Космическая десятка — начало">
+          <span class="game__brand-icon" aria-hidden="true">✦</span>
+          <span>Космическая десятка</span>
+        </a>
+        <span class="game__header-note">Маленький шаг — большая ракета</span>
+      </header>
+
+      <main class="game__main">
+        <section class="game__screen game__screen--welcome" id="welcome" data-screen="welcome" aria-labelledby="welcome-title">
+          <div class="game__welcome-art" aria-hidden="true">
+            <span class="game__art-star game__art-star--one">✦</span>
+            <span class="game__art-star game__art-star--two">·</span>
+            <span class="game__art-star game__art-star--three">✧</span>
+            <span class="game__art-orbit"></span>
+            <span class="game__art-planet"></span>
+            <span class="game__art-rocket">🚀</span>
+          </div>
+          <div class="game__welcome-copy">
+            <p class="game__eyebrow">Миссия: числа до 10</p>
+            <h1 class="game__title" id="welcome-title" tabindex="-1">Космическая<br><span>десятка</span></h1>
+            <p class="game__description">Помоги ракете добраться до планеты! Для этого будем собирать разные числа до десяти.</p>
+            <button class="game__button game__button--primary" type="button" data-action="start">
+              Играть <span aria-hidden="true">→</span>
+            </button>
+            <p class="game__duration">12 заданий и немного космической магии</p>
+          </div>
+        </section>
+
+        <section class="game__screen game__screen--question" data-screen="baseline" aria-labelledby="baseline-title" hidden>
+          <div class="game__stage-heading">
+            <p class="game__eyebrow">Перед полётом</p>
+            <h1 class="game__stage-title" id="baseline-title" tabindex="-1">Проверим состав чисел</h1>
+            <p class="game__stage-description">Реши три задания. Здесь можно не спешить.</p>
+          </div>
+          <div class="game__question-card">
+            <div class="game__question-meta"><span data-question-count></span><span class="game__meta-dot">·</span><span>До старта</span></div>
+            <div class="game__equation" data-equation role="group" aria-label="Задание"></div>
+            <p class="game__prompt">Какое число нужно поставить вместо вопроса?</p>
+            <div class="game__answers" data-answers role="group" aria-label="Варианты ответа"></div>
+            <p class="game__feedback" data-feedback role="status" aria-live="polite"></p>
+          </div>
+          <p class="game__gentle-note"><span aria-hidden="true">✦</span> Каждое задание — новый шаг к планете</p>
+        </section>
+
+        <section class="game__screen game__screen--question" data-screen="practice" aria-labelledby="practice-title" hidden>
+          <div class="game__stage-heading">
+            <p class="game__eyebrow">Космическое приключение</p>
+            <h1 class="game__stage-title" id="practice-title" tabindex="-1">Заряжаем ракету</h1>
+            <p class="game__stage-description">Собери нужное число — и ракета полетит дальше!</p>
+          </div>
+          <div class="game__journey" aria-label="Путь ракеты к планете">
+            <div class="game__journey-track">
+              <span class="game__journey-line" aria-hidden="true"></span>
+              <span class="game__journey-rocket" data-rocket aria-hidden="true">🚀</span>
+              <span class="game__journey-planet" aria-hidden="true">🪐</span>
+            </div>
+            <p class="game__journey-label" data-progress-label>Энергия: 0 из 6</p>
+          </div>
+          <div class="game__question-card game__question-card--practice">
+            <div class="game__question-meta"><span data-question-count></span><span class="game__meta-dot">·</span><span>Тренировка</span></div>
+            <div class="game__equation" data-equation role="group" aria-label="Задание"></div>
+            <p class="game__prompt">Какое число нужно поставить вместо вопроса?</p>
+            <div class="game__answers" data-answers role="group" aria-label="Варианты ответа"></div>
+            <p class="game__feedback" data-feedback role="status" aria-live="polite"></p>
+            <div class="game__hint" data-hint hidden>
+              <div class="game__hint-heading">
+                <span class="game__hint-icon" aria-hidden="true">✧</span>
+                <p class="game__hint-copy" data-hint-copy></p>
+              </div>
+              <div class="game__ten-frame" data-ten-frame role="img" aria-label="Модель десятки"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="game__screen game__screen--question" data-screen="final" aria-labelledby="final-title" hidden>
+          <div class="game__stage-heading">
+            <p class="game__eyebrow">Почти у цели</p>
+            <h1 class="game__stage-title" id="final-title" tabindex="-1">Проверим новые числа</h1>
+            <p class="game__stage-description">Ещё три задания — и планета наша!</p>
+          </div>
+          <div class="game__question-card">
+            <div class="game__question-meta"><span data-question-count></span><span class="game__meta-dot">·</span><span>Новая проверка</span></div>
+            <div class="game__equation" data-equation role="group" aria-label="Задание"></div>
+            <p class="game__prompt">Какое число нужно поставить вместо вопроса?</p>
+            <div class="game__answers" data-answers role="group" aria-label="Варианты ответа"></div>
+            <p class="game__feedback" data-feedback role="status" aria-live="polite"></p>
+          </div>
+          <p class="game__gentle-note"><span aria-hidden="true">✦</span> Ты уже совсем близко!</p>
+        </section>
+
+        <section class="game__screen game__screen--result" data-screen="result" aria-labelledby="result-title" hidden>
+          <div class="game__result-art" aria-hidden="true">
+            <span class="game__result-star game__result-star--one">✦</span>
+            <span class="game__result-star game__result-star--two">✧</span>
+            <span class="game__result-planet">🪐</span>
+            <span class="game__result-rocket">🚀</span>
+            <span class="game__result-confetti">✦　·　✧　·　✦</span>
+          </div>
+          <p class="game__eyebrow">Миссия выполнена</p>
+          <h1 class="game__stage-title" id="result-title" tabindex="-1">Ура, мы на планете!</h1>
+          <p class="game__result-description">Ты помог ракете долететь до цели. Спасибо за это космическое приключение!</p>
+          <button class="game__button game__button--primary" type="button" data-action="restart">Играть ещё <span aria-hidden="true">↻</span></button>
+
+          <details class="game__parent-panel">
+            <summary class="game__parent-summary"><span>Для родителей</span><span class="game__summary-arrow" aria-hidden="true">⌄</span></summary>
+            <div class="game__parent-content">
+              <p class="game__parent-caption">Результаты этого занятия</p>
+              <dl class="game__stats">
+                <div class="game__stat"><dt>До игры</dt><dd data-stat="baseline">— из 3</dd></div>
+                <div class="game__stat"><dt>После игры</dt><dd data-stat="final">— из 3</dd></div>
+                <div class="game__stat"><dt>Ошибки в практике</dt><dd data-stat="errors">0</dd></div>
+                <div class="game__stat"><dt>Использовано подсказок</dt><dd data-stat="hints">0</dd></div>
+                <div class="game__stat game__stat--wide"><dt>Решено с первой попытки</dt><dd data-stat="first-try">0 из 6</dd></div>
+              </dl>
+              <p class="game__parent-footnote">Это результаты одного занятия — они не определяют, насколько хорошо ребёнок освоил тему.</p>
+            </div>
+          </details>
+        </section>
+      </main>
+
+      <footer class="game__footer"><span class="game__footer-star" aria-hidden="true">✦</span> Сделано для маленьких исследователей</footer>
+    </div>
+  </body>
+</html>
