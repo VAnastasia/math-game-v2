@@ -261,6 +261,10 @@ h1[tabindex="-1"]:focus { outline: none; }
   .game__answer { min-height: 53px; font-size: 20px; }
   .game__journey { margin-bottom: 12px; }
   .game__screen--result { padding-bottom: 14px; }
+  .game__stats { grid-template-columns: 1fr; }
+  .game__stat { min-height: auto; flex-direction: column; align-items: flex-start; justify-content: center; gap: 4px; }
+  .game__stat--wide { grid-column: auto; }
+  .game__stat dd { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
 }
 
 @media (max-width: 380px) {
